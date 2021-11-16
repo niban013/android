@@ -4,3 +4,17 @@ https://www.ifourtechnolab.us/bloglist/how-to-create-a-half-screen-custom-camera
 https://qiita.com/muak_x/items/c441e1e795ba22d597d6
 
 https://www.py4u.net/discuss/1934723
+
+
+ public partial class MainTabbedPage : TabbedPage
+    {
+        NewViewModel v;
+        public MainTabbedPage(NewViewModel _v)
+        {
+            v=  _v;
+            v.Title = "gy";
+            Children.Add(new TabChildrenPage1(v));
+            Children.Add(new TabChildrenPage2(v));
+            //this.Children.Add(new BarcelonaPage());
+        }
+    }
