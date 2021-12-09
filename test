@@ -1,3 +1,33 @@
+   <StackLayout >
+
+                    <Grid Padding="0" VerticalOptions="CenterAndExpand">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="40" />
+                            <!--<RowDefinition Height="40" />
+                        <RowDefinition Height="40" />
+                        <RowDefinition Height="40" />-->
+                        </Grid.RowDefinitions>
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="4*" />
+                            <ColumnDefinition Width="2*" />
+                            <ColumnDefinition Width="4*" />
+                        </Grid.ColumnDefinitions>
+
+                        <Button Grid.Row="0" Grid.Column="0"  HorizontalOptions="StartAndExpand" Margin="-5,0,0,-5"/>
+                        <Button Grid.Row="0" Grid.Column="1"  HorizontalOptions="FillAndExpand"/>
+                        <Button Grid.Row="0" Grid.Column="2"   HorizontalOptions="End"/>
+                        <!--<Entry Grid.Row="2" Grid.Column="1" Placeholder="Phone"  HorizontalOptions="FillAndExpand"/>
+                    <Button Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"  HorizontalOptions="FillAndExpand" Text="Register" TextColor="White" BackgroundColor="Black"/>-->
+                    </Grid>
+                    <!--<Button VerticalOptions="Center"
+        Text="Login"
+        Command="{Binding LoginCommand}"/>-->
+                    <!--<Button Text="Loginqqqq" VerticalOptions="Center" 
+                                Command="{Binding Path=BindingContext.PerformSearch, Source={x:Reference MainPage},Mode=TwoWay}" CommandParameter="1" 
+                                Style="{StaticResource InxButton}"/>-->
+                </StackLayout>
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
