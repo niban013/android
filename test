@@ -1,3 +1,123 @@
+   <!DOCTYPE html>
+<html>
+<head>
+
+<style>
+table, td, th {
+  border: 1px solid black;
+ 
+}
+
+td
+{
+ width: 33%;
+  text-align: right;
+}
+
+tbody>tr>td:first-child
+{
+  text-align: center;
+}
+table {
+  width: 100%;
+ 
+}
+</style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="./jquery.scrollTableBody-1.0.0.js"></script>
+
+
+<script>
+ 
+$(document).ready(function(){
+
+  var JData = [{ name: "Wind", age: "20", height: "182" },
+           { name: "Wind", age: "18", height: "165" },
+           { name: "Edge", age: "25", height: "171" }]
+  
+  //我們可以透過.length得知其中的物件數
+  var NumOfJData = JData.length; //NumOfJData=3
+  var select = $('#myselect');
+  
+ const dis =[...new Set(JData.map(x=>x.name))];
+
+  $('option', select).remove();
+$.each(dis, function(i, value) {
+    var option = new Option(value, value);
+    select.append($(option));
+});
+  $("#JSON_table").empty();
+   $("#JSON_table").append( "<thead><tr>" +
+                            "<th>" + "name"   + "</th>" +
+                            "<th>" + "age"   + "</th>" +
+                            "<th>" + "height" + "</th>" +
+                            "</tr></thead><tbody></tbody>");
+
+
+if(dis.length>0)
+{
+  const filtered = JData.filter(x => x.name == dis[0]);
+ refresh (filtered);
+ 
+}
+  // refresh (JData);
+ 
+ $('#myselect').on('change', function (e) {
+    var optionSelected = $("option:selected", this);
+    var valueSelected = this.value;
+    const filteredHomes = JData.filter(x => x.name == valueSelected);
+ refresh (filteredHomes);
+});
+
+function refresh(Data)
+{
+   
+ $("#JSON_table > tbody").empty();
+   
+ //$("#JSON_table > tbody").append("<tbody>");
+    
+   for (var i = 0; i < Data.length; i++) {
+     $("#JSON_table > tbody").append("<tr>" +
+                            "<td>" + Data[i].name   + "</td>" +
+                            "<td>" + Data[i].age    + "</td>" +
+                            "<td>" + Data[i].height + "</td>" +
+                            "</tr>");
+ 
+   }
+
+ //  $("#JSON_table").append("</tbody>");
+}
+
+
+});
+ 
+</script>
+  <script type="text/javascript">
+            $(function() {
+                $("#JSON_table").scrollTableBody();
+            });
+        </script>
+</head>
+<body>
+
+<label for="cars">Choose a car:</label>
+  <select id="myselect">
+  
+  </select>
+<table id="JSON_table">
+
+</table>
+
+</body>
+</html>
+
+   
+   
+   
+   
+   
+   
+   
    <StackLayout >
 
                     <Grid Padding="0" VerticalOptions="CenterAndExpand">
