@@ -1,4 +1,51 @@
-  
+  private void pictureBox1_MouseDown(object sender, MouseEventArgs e)
+        {
+            int imgWidth = pictureBox1.Image.Width;
+            int imgHeight = pictureBox1.Image.Height;
+            int boxWidth = pictureBox1.Size.Width;
+            int boxHeight = pictureBox1.Size.Height;
+
+            //This variable will hold the result
+            float X = e.X;
+            float Y = e.Y;
+            //Comparing the aspect ratio of both the control and the image itself.
+            if (imgWidth / imgHeight > boxWidth / boxHeight)
+            {
+                //If true, that means that the image is stretched through the width of the control.
+                //'In other words: the image is limited by the width.
+
+                //The scale of the image in the Picture Box.
+                float scale = boxWidth / imgWidth;
+
+                //Since the image is in the middle, this code is used to determinate the empty space in the height
+                //'by getting the difference between the box height and the image actual displayed height and dividing it by 2.
+                float blankPart = (boxHeight - scale * imgHeight) / 2;
+
+                Y -= blankPart;
+
+                //Scaling the results.
+                X /= scale;
+                Y /= scale;
+            }
+            else
+            {
+                //If true, that means that the image is stretched through the height of the control.
+                //'In other words: the image is limited by the height.
+
+                //The scale of the image in the Picture Box.
+                float scale = boxHeight / imgHeight;
+
+                //Since the image is in the middle, this code is used to determinate the empty space in the width
+                //'by getting the difference between the box width and the image actual displayed width and dividing it by 2.
+                float blankPart = (boxWidth - scale * imgWidth) / 2;
+                X -= blankPart;
+
+                //Scaling the results.
+                X /= scale;
+                Y /= scale;
+            }
+            label1.Text = Conversion.Int(X) + ", " + Conversion.Int(Y);
+        }
   void remove(string s)
 		{
 			var g = SpouseTS.OfType<EntryCell>().Where(j => j.ClassId == "csid" + s).FirstOrDefault();
