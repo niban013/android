@@ -1,3 +1,20 @@
+    void f(float x,float y)
+        {
+
+            var lb = new Label() { Text = "1", Location  = new Point(Convert.ToInt32(x), Convert.ToInt32(y)) 
+            , BackColor= Color.Transparent
+        };
+            lb.Width = 50;
+            lb.Height = 50;
+            pictureBox1.Controls.Add(lb);
+            //var pos = this.PointToScreen(lb.Location);
+            //pos = pictureBox1.PointToClient(pos);
+            //lb.Parent = pictureBox1;
+            //lb.Location = pos;
+            //lb.BackColor = Color.Transparent;
+        }
+  
+  
   private void pictureBox1_MouseDown(object sender, MouseEventArgs e)
         {
             int imgWidth = pictureBox1.Image.Width;
