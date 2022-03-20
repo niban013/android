@@ -1,4 +1,460 @@
-    void f(float x,float y)
+   using Microsoft.VisualBasic;
+using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Drawing.Imaging;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace WinFormsApp1
+{
+    public partial class Form1 : Form
+    {
+
+        string ff = "[{\"imgname\":\"qr-code.png\",\"lsxy\":[{\"bin\":\"1\",\"x\":138.0,\"y\":172.5},{\"bin\":\"2\",\"x\":135.0,\"y\":129.5},{\"bin\":\"3\",\"x\":31.0,\"y\":239.5}],\"base64\":\"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\"}]";
+           // "[{\"imgname\":\"qr-code.png\",\"lsxy\":null,\"base64\":\"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\"}]";
+        
+        
+        public Form1()
+        {
+            InitializeComponent();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            //dataGridView1.AutoGenerateColumns = false;
+            //dataGridView1.DataSource = null;
+            //dataGridView1.DataSource = k;
+        
+        }
+        List<img> lsimg = new List<img>();
+        List<xy> lsxy = new List<xy>();
+        BindingSource bindingSource = new BindingSource();
+     
+        void f(float x, float y)
+        {
+            var xy1 = new xy("", x, y);
+            draw(xy1);
+            //var lb = new Label()
+            //{
+            //    Text = (k.Count + 1).ToString(),
+            //    Location = new Point(Convert.ToInt32(x), Convert.ToInt32(y))
+            //,
+            //    BackColor = Color.Transparent
+            //};
+            //lb.Width = 50;
+            //lb.Height = 50;
+            //pictureBox1.Controls.Add(lb);
+
+
+
+            //var xy1 = new xy(lb.Text, x,y);
+            //k.Add(xy1);
+            //var pos = this.PointToScreen(lb.Location);
+            //pos = pictureBox1.PointToClient(pos);
+            //lb.Parent = pictureBox1;
+            //lb.Location = pos;
+            //lb.BackColor = Color.Transparent;
+        }
+
+        private void pictureBox1_MouseMove(object sender, MouseEventArgs e)
+        {
+
+        }
+
+        private void resizeImage(System.Drawing.Image imgToResize, Size size)
+        {
+            //Get the image current width  
+            int sourceWidth = imgToResize.Width;
+            //Get the image current height  
+            int sourceHeight = imgToResize.Height;
+            float nPercent = 0;
+            float nPercentW = 0;
+            float nPercentH = 0;
+            //Calulate  width with new desired size  
+            nPercentW = ((float)size.Width / (float)sourceWidth);
+            //Calculate height with new desired size  
+            nPercentH = ((float)size.Height / (float)sourceHeight);
+            if (nPercentH < nPercentW)
+                nPercent = nPercentH;
+            else
+                nPercent = nPercentW;
+            //New Width  
+            int destWidth = (int)(sourceWidth * nPercent);
+            //New Height  
+            int destHeight = (int)(sourceHeight * nPercent);
+            //Bitmap b = new Bitmap(destWidth, destHeight);
+            //Graphics g = Graphics.FromImage((System.Drawing.Image)b);
+            //g.InterpolationMode = InterpolationMode.HighQualityBicubic;
+            //// Draw image with new width and height  
+            //g.DrawImage(imgToResize, 0, 0, destWidth, destHeight);
+            //g.Dispose();
+            //return (System.Drawing.Image)b;
+        }
+
+        private void pictureBox1_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (pictureBox1.Image != null)
+            {
+                int imgWidth = pictureBox1.Image.Width;
+                int imgHeight = pictureBox1.Image.Height;
+                int boxWidth = pictureBox1.Size.Width;
+                int boxHeight = pictureBox1.Size.Height;
+
+
+                //resizeImage()
+
+                //This variable will hold the result
+                float X = e.X-15;
+                float Y = e.Y-10;
+                //Comparing the aspect ratio of both the control and the image itself.
+                //if (imgWidth / imgHeight > boxWidth / boxHeight)
+                //{
+                //    //If true, that means that the image is stretched through the width of the control.
+                //    //'In other words: the image is limited by the width.
+
+                //    //The scale of the image in the Picture Box.
+                //    float scale = boxWidth / imgWidth;
+
+                //    //Since the image is in the middle, this code is used to determinate the empty space in the height
+                //    //'by getting the difference between the box height and the image actual displayed height and dividing it by 2.
+                //    float blankPart = (boxHeight - scale * imgHeight) / 2;
+
+                //    Y -= blankPart;
+
+                //    //Scaling the results.
+                //    X /= scale;
+                //    Y /= scale;
+                //}
+                //else
+                //{
+                //    //If true, that means that the image is stretched through the height of the control.
+                //    //'In other words: the image is limited by the height.
+
+                //    //The scale of the image in the Picture Box.
+                //    float scale = boxHeight / imgHeight;
+
+                //    //Since the image is in the middle, this code is used to determinate the empty space in the width
+                //    //'by getting the difference between the box width and the image actual displayed width and dividing it by 2.
+                //    float blankPart = (boxWidth - scale * imgWidth) / 2;
+                //    X -= blankPart;
+
+                //    //Scaling the results.
+                //    X /= scale;
+                //    Y /= scale;
+                //}
+                f(X, Y);
+                label1.Text = Conversion.Int(X) + ", " + Conversion.Int(Y);
+            }
+        }
+
+
+      
+
+      
+
+        private void dataGridView1_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+            try
+            {
+                label1.Text = string.Format("Time={0}；{1}事件,Row:col={2},{3}", DateTime.Now.ToString("HH:mm:ss.fff"), "CellEndEdit", e.RowIndex, e.ColumnIndex);
+
+                System.Threading.Thread.Sleep(500);
+            }
+            catch (Exception ex)
+            {
+            
+            } 
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("gg");
+        }
+
+        void databind(List<xy> _lsxy)
+        {
+            bindingSource.DataSource = null;
+            bindingSource.DataSource = _lsxy;
+            dataGridView1.DataSource = bindingSource;
+            //dataGridView1.Refresh();
+        }
+
+        private void draw(xy xy1)
+        {
+            lsxy.Add(xy1);
+            var lb = new Label()
+            {
+                Text = (lsxy.Count).ToString(),
+                Location = new Point(Convert.ToInt32(xy1.x), Convert.ToInt32(xy1.y)),
+                BackColor = Color.Red
+            };
+            lb.Width = 30;
+            lb.Height = 30;
+            pictureBox1.Controls.Add(lb);
+            databind(lsxy);
+        }
+        private void redraw(List<xy> _lsxy)
+        {
+            pictureBox1.Controls.Clear();
+            int g = 1;
+            _lsxy.ForEach(f => {
+                var lb = new Label()
+                {
+                    Text = (g).ToString(),
+                    Location = new Point(Convert.ToInt32(f.x), Convert.ToInt32(f.y)) ,
+                    BackColor = Color.Transparent
+                };
+                lb.Width = 10;
+                lb.Height = 10;
+                lb.BackColor = Color.Red;
+                pictureBox1.Controls.Add(lb);
+                g++;
+            });
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            try
+            {
+                if (e.ColumnIndex == 0)
+                {
+                    if (comboBox1.SelectedItem == null)
+                        return;
+                    DataGridViewRow row = dataGridView1.Rows[e.RowIndex];
+                    var item = lsimg.Where(p => p.imgname == comboBox1.SelectedItem.ToString()).FirstOrDefault();
+                    if (row.Cells[0].Value == null)
+                        return;
+                    if (MessageBox.Show(string.Format("Do you want to delete Customer ID: {0}?", row.Cells["x"].Value), "Confirmation", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                    {
+                        lsxy.RemoveAt(e.RowIndex);
+                        databind(lsxy);
+                        item.lsxy = lsxy;
+                        Savejson(lsimg);
+                        redraw(lsxy);
+                    }
+                }
+            }
+            catch (Exception ex)
+            { 
+            
+            }
+           
+        }
+
+        void topic(string base64String)
+        {
+            byte[] imageBytes = Convert.FromBase64String(base64String); 
+            using (var ms = new MemoryStream(imageBytes, 0, imageBytes.Length))
+            {
+                pictureBox1.Image = Image.FromStream(ms, true);
+            }
+        }
+
+        void Savejson(List<img> _imgs)
+        { 
+            string json = JsonConvert.SerializeObject(_imgs); 
+            File.WriteAllText(Path.Combine(System.IO.Directory.GetCurrentDirectory(), "Data", "positions.json"), json);
+        }
+        void LoadJson()
+        {
+            var path = Path.Combine(System.IO.Directory.GetCurrentDirectory(), "Data");
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
+            if (File.Exists(Path.Combine(path, "positions.json")))
+            {
+                using (StreamReader r = new StreamReader(Path.Combine(path, "positions.json")))
+                {
+                    string json = r.ReadToEnd();
+                    lsimg = JsonConvert.DeserializeObject<List<img>>(json);
+                }
+            }
+            else 
+            {
+                img item = new img();
+                item.imgname = "new";
+                item.base64 = "";
+                item.lsxy = new List<xy>();
+                lsimg.Add(item);
+                Savejson(lsimg);
+            }
+           
+        }
+        void FromPositions()
+        {
+
+        }
+
+        //var dialog = new OpenFileDialog();
+
+        //dialog.Title = "Open Image";
+        //dialog.Filter = "bmp files (*.png)|*.png";
+
+        //if (dialog.ShowDialog() == DialogResult.OK)
+        //{
+
+        //    pictureBox1.ImageLocation = dialog.FileName;
+
+        //    //pictureBox1.(dialog.FileName);
+        //}
+
+        //dialog.Dispose();
+        string destinationFile = "";
+        private void button4_Click(object sender, EventArgs e)
+        {
+            openFileDialog1.FileName = "";
+            openFileDialog1.Filter = "Image Files (*.png)|*.png";
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            { 
+                destinationFile = openFileDialog1.FileName.ToString();
+                img item = new img();
+                item.imgname = openFileDialog1.SafeFileName;
+                item.base64 = Convert.ToBase64String(System.IO.File.ReadAllBytes(destinationFile));
+                item.lsxy = new List<xy>();
+                lsimg.Add(item);
+                Savejson(lsimg);
+                pictureBox1.Image = Image.FromFile(openFileDialog1.FileName);
+                //pictureBox1.ImageLocation = openFileDialog1.FileName;
+                savePng(item);
+                comboBox1.Items.Add(item.imgname);
+                comboBox1.SelectedItem = item.imgname;
+              
+            }
+            else
+            {
+                MessageBox.Show("Select File...", "Warning..!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            Form.CheckForIllegalCrossThreadCalls = false;
+            dataGridView1.AutoGenerateColumns = false;
+            databind(lsxy);
+            pictureBox1.Controls.Clear();
+            LoadJson();
+            lsimg.ForEach(f =>
+            {
+                if (f.imgname != "new")
+                {
+                    comboBox1.Items.Add(f.imgname);
+                }
+            });
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            pictureBox1.Controls.Clear();
+            var item = lsimg.Where(p => p.imgname == comboBox1.SelectedItem.ToString()).FirstOrDefault();
+      
+            lsxy = item.lsxy;
+            redraw(item.lsxy);
+            databind(lsxy);
+            topic(item.base64); 
+        }
+
+        public void savePng(img item)
+        {
+            var path = Path.Combine(System.IO.Directory.GetCurrentDirectory(), "images");
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
+            pictureBox1.Image.Save(Path.Combine(path, item.imgname), ImageFormat.Png);
+        }
+        private void button5_Click(object sender, EventArgs e)
+        {
+            if (comboBox1.SelectedIndex > -1)
+            {
+                var item = lsimg.Where(p => p.imgname == comboBox1.SelectedItem.ToString()).FirstOrDefault();
+                if (item != null)
+                {
+                    item.lsxy = lsxy; 
+                    foreach (DataGridViewRow row in dataGridView1.Rows)
+                    {
+                        string bin = row.Cells["bin"].Value.ToString();
+                        string x = row.Cells["x"].Value.ToString();
+                        string y = row.Cells["y"].Value.ToString();
+                        var item1=item.lsxy.Where(p => p.x.ToString() == x && p.y.ToString() == y).FirstOrDefault();
+                        if (item1 != null)
+                        {
+                            item1.bin = bin;
+                        }
+                    }  
+                }
+
+                Savejson(lsimg);
+                savePng(item);
+            }
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            if(comboBox1.SelectedIndex>-1)
+            {
+                var item = lsimg.Where(p => p.imgname == comboBox1.SelectedItem.ToString()).FirstOrDefault();
+                if (item != null)
+                {
+                    lsimg.Remove(item);
+                    comboBox1.Items.Remove(item.imgname);
+                    databind(new List<xy>());
+                    pictureBox1.Image = null;
+                    pictureBox1.Controls.Clear();
+                }
+                Savejson(lsimg);
+
+            }
+           
+        }
+
+        private void dataGridView1_DataError(object sender, DataGridViewDataErrorEventArgs e)
+        {
+
+        }
+    }
+
+
+    public class xy
+    { 
+        public string bin { get; set; }
+        public float x { get; set; }
+        public float y { get; set; }
+
+        public xy(string _bin, float _x, float _y)
+        {
+            bin = _bin;
+            x = _x;
+            y = _y;
+        }
+    }
+
+    public class img
+    {
+        public string imgname { get; set; }
+        public List<xy> lsxy { get; set; }
+
+        public string base64 { get; set; }
+        public img()
+        {}
+        public img(string _imgname, string _base64, List<xy> _lsxy)
+        {
+            imgname = _imgname;
+            lsxy = _lsxy;
+            base64 = _base64;
+        }
+    }
+}
+   
+   
+   void f(float x,float y)
         {
 
             var lb = new Label() { Text = "1", Location  = new Point(Convert.ToInt32(x), Convert.ToInt32(y)) 
