@@ -1,4 +1,14 @@
-   using Microsoft.VisualBasic;
+  
+  Device.BeginInvokeOnMainThread(() => UserDialogs.Instance.ShowLoading("Loading ...", MaskType.Black));
+			Task.Run(async () => {
+				await Task.Delay(5000);
+			}).ContinueWith(result => Device.BeginInvokeOnMainThread(() => {
+
+				UserDialogs.Instance.HideLoading();
+
+			}));
+  
+  using Microsoft.VisualBasic;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
