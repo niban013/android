@@ -1,12 +1,21 @@
   
-  Device.BeginInvokeOnMainThread(() => UserDialogs.Instance.ShowLoading("Loading ...", MaskType.Black));
-			Task.Run(async () => {
-				await Task.Delay(5000);
-			}).ContinueWith(result => Device.BeginInvokeOnMainThread(() => {
+	Device.BeginInvokeOnMainThread(() => UserDialogs.Instance.ShowLoading("Loading ...", MaskType.Black));
+				Task.Run(async () => {
+				try
+					{
+						await Task.Delay(5000);
+						throw new Exception("ooo");
+				
+					}
+					catch (Exception e)
+					{
+						UserDialogs.Instance.HideLoading();
+					}
+				}).ContinueWith(result => Device.BeginInvokeOnMainThread(() => {
 
-				UserDialogs.Instance.HideLoading();
+					UserDialogs.Instance.HideLoading();
 
-			}));
+				}));
   
   using Microsoft.VisualBasic;
 using Newtonsoft.Json;
