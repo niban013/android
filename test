@@ -1,4 +1,29 @@
   
+	 class MyRenderer : NavigationRenderer
+    {
+        public override void PushViewController(UIViewController viewController, bool animated)
+        {
+            base.PushViewController(viewController, animated);
+
+            var currentPage = (this.Element as Xamarin.Forms.NavigationPage)?.CurrentPage;
+
+            if (this.NavigationBar == null || currentPage == null)
+                return;
+
+            var buttonItems = TopViewController.NavigationItem.RightBarButtonItems;
+
+            foreach (var button in buttonItems)
+            {
+                if (button.Image != null)
+                {
+                    button.Image = button.Image.ImageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal);
+                    button.TintColor = UIColor.Clear;
+                }
+
+            }
+        }
+    }
+	
 	Device.BeginInvokeOnMainThread(() => UserDialogs.Instance.ShowLoading("Loading ...", MaskType.Black));
 				Task.Run(async () => {
 				try
